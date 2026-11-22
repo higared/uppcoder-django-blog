@@ -66,8 +66,8 @@ pixi run -e web-django python manage.py loaddata sample_posts
 
 ```
 manage.py
-requirements.txt          # Django / psycopg / gunicorn / whitenoise
-config/
+requirements.txt          # Django / psycopg / gunicorn（没有 whitenoise）
+mysite/
   settings.py             # 环境变量配数据库 + HTTPS 代理设置
   urls.py / wsgi.py / asgi.py
 blog/
@@ -86,3 +86,7 @@ blog/
 - **部署后首页是空的**：正常，数据库是空的。去后台写一篇，或跑
   `loaddata sample_posts` 导入示例。
 - **中文标题的 slug 是空的**：保存时自动变成 `post-<id>`，不影响访问。
+- **部署后 502（v2 已修）**：v1 用了 `whitenoise`，但 Uppcoder 的 pixi
+  环境里没装它，启动时报 `ModuleNotFoundError: No module named 'whitenoise'`
+  就直接崩了。v2 已去掉 whitenoise，项目名也从 `config` 改回官方默认的
+  `mysite`（生产启动命令是 `gunicorn mysite.wsgi:application`）。

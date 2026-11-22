@@ -1,4 +1,5 @@
 {% extends "blog/base.html" %}
+{% load blog_extras %}
 {% block title %}{{ post.title }} - 我的博客{% endblock %}
 {% block masthead_title %}{{ post.title }}{% endblock %}
 {% block masthead_subtitle %}{% if post.summary %}{{ post.summary }}{% endif %}{% endblock %}
@@ -6,6 +7,6 @@
 {% block content %}
   <a class="back" href="{% url 'post_list' %}">← 返回首页</a>
   <article>
-    <div class="content">{{ post.content|linebreaks }}</div>
+    <div class="content">{{ post.content|render_content }}</div>
   </article>
 {% endblock %}

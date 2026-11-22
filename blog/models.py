@@ -7,7 +7,7 @@ class Post(models.Model):
     title = models.CharField("标题", max_length=200)
     slug = models.SlugField("链接", max_length=200, unique=True, blank=True)
     summary = models.CharField("摘要", max_length=300, blank=True)
-    content = models.TextField("正文（支持 Markdown 文本，页面按纯文本分段显示）")
+    content = models.TextField("正文（支持 Markdown 图片/链接：从 ImgBed 复制 MarkDown 格式粘贴即可）")
     is_published = models.BooleanField("已发布", default=True)
     created_at = models.DateTimeField("创建时间", auto_now_add=True)
     updated_at = models.DateTimeField("更新时间", auto_now=True)

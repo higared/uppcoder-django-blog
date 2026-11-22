@@ -1,14 +1,18 @@
 {% extends "blog/base.html" %}
 {% block title %}我的博客 - 首页{% endblock %}
+{% block masthead_title %}我的博客{% endblock %}
+{% block masthead_subtitle %}记录 VPS 折腾、Django 学习和橡胶期货笔记{% endblock %}
 {% block content %}
   {% if posts %}
     {% for post in posts %}
-    <article class="card">
-      <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
-      <div class="meta">{{ post.created_at|date:"Y年m月d日 H:i" }}</div>
-      {% if post.summary %}<p class="summary">{{ post.summary }}</p>{% endif %}
-      <a href="{{ post.get_absolute_url }}">阅读全文 →</a>
+    <article class="post-preview">
+      <a href="{{ post.get_absolute_url }}">
+        <h2>{{ post.title }}</h2>
+        {% if post.summary %}<div class="post-subtitle">{{ post.summary }}</div>{% endif %}
+      </a>
+      <div class="post-meta">发布于 {{ post.created_at|date:"Y年m月d日" }}</div>
     </article>
+    {% if not forloop.last %}<hr>{% endif %}
     {% endfor %}
   {% else %}
     <p class="empty">还没有文章。去 <a href="/admin/">后台管理</a> 写第一篇吧，或运行 <code>python manage.py loaddata sample_posts</code> 导入示例文章。</p>

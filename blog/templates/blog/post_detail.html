@@ -1,11 +1,11 @@
 {% extends "blog/base.html" %}
 {% block title %}{{ post.title }} - 我的博客{% endblock %}
+{% block masthead_title %}{{ post.title }}{% endblock %}
+{% block masthead_subtitle %}{% if post.summary %}{{ post.summary }}{% endif %}{% endblock %}
+{% block masthead_meta %}<div class="meta">发布于 {{ post.created_at|date:"Y年m月d日 H:i" }}{% if post.updated_at != post.created_at %} · 更新于 {{ post.updated_at|date:"Y年m月d日 H:i" }}{% endif %}</div>{% endblock %}
 {% block content %}
   <a class="back" href="{% url 'post_list' %}">← 返回首页</a>
-  <article class="card">
-    <h1 style="margin-top:0;">{{ post.title }}</h1>
-    <div class="meta">{{ post.created_at|date:"Y年m月d日 H:i" }}{% if post.updated_at != post.created_at %} · 更新于 {{ post.updated_at|date:"Y年m月d日 H:i" }}{% endif %}</div>
-    {% if post.summary %}<p class="summary"><strong>摘要：</strong>{{ post.summary }}</p>{% endif %}
+  <article>
     <div class="content">{{ post.content|linebreaks }}</div>
   </article>
 {% endblock %}

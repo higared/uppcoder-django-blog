@@ -90,3 +90,12 @@ blog/
   环境里没装它，启动时报 `ModuleNotFoundError: No module named 'whitenoise'`
   就直接崩了。v2 已去掉 whitenoise，项目名也从 `config` 改回官方默认的
   `mysite`（生产启动命令是 `gunicorn mysite.wsgi:application`）。
+- **v3 样式（Clean Blog 风格）**：只改了 `blog/templates/blog/` 下的
+  3 个模板（base / post_list / post_detail），CSS 全内联，不依赖 CDN
+  和静态文件。换样式后不用 migrate，Pull 后重启应用即可。
+- **v4 图床（ImgBed Markdown）**：正文支持 ImgBed 的 MarkDown 格式，
+  在文章里单独一行粘贴 `![名字](https://imgbed.../file/...)` 就会显示
+  成图片，`[文字](https://...)` 会变成链接。实现是自写的
+  `blog/templatetags/blog_extras.py`（不装外部 markdown 包，Uppcoder
+  的 pixi 环境装不上），其他 HTML 会被转义，不会执行。只改模板和
+  新增这一个文件，不用 migrate，Pull 后重启即可。

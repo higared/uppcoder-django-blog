@@ -1,0 +1,16 @@
+{% extends "blog/base.html" %}
+{% block title %}我的博客 - 首页{% endblock %}
+{% block content %}
+  {% if posts %}
+    {% for post in posts %}
+    <article class="card">
+      <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
+      <div class="meta">{{ post.created_at|date:"Y年m月d日 H:i" }}</div>
+      {% if post.summary %}<p class="summary">{{ post.summary }}</p>{% endif %}
+      <a href="{{ post.get_absolute_url }}">阅读全文 →</a>
+    </article>
+    {% endfor %}
+  {% else %}
+    <p class="empty">还没有文章。去 <a href="/admin/">后台管理</a> 写第一篇吧，或运行 <code>python manage.py loaddata sample_posts</code> 导入示例文章。</p>
+  {% endif %}
+{% endblock %}
